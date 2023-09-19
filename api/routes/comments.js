@@ -1,8 +1,14 @@
-// const express = require ("express");
-// const router = express.Router();
+const express = require("express");
+const {
+	getComments,
+	addComment,
+	//deleteComment,
+} = require ("../controllers/commentController.js");
 
-// const {getUser} =  require ("../controllers/userController");
-// router.get ("",);
+const router = express.Router();
 
+router.get("/", getComments);
+router.post("/", addComment);
+//router.delete("/:id", deleteComment);
 
-// module.exports = router ;
+module.exports= router;

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require ("cors");
 const cookieParser = require ("cookie-parser");
-
+const multer = require("multer");
 
 const app = express ();
 
@@ -24,9 +24,24 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../client/public/upload");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  const file = req.file;
+  res.status(200).json(file.filename);
+});
 
 app.use("/api/users", require("./routes/users.js"));
-// app.use("/api/posts", require("./routes/posts.js"));
-// app.use("/api/comments", require("./routes/comments.js"));
-// app.use("/api/likes", require("./routes/likes.js"));
- app.use("/api/auth", require("./routes/auth.js"));
+app.use("/api/posts", require("./routes/posts.js"));
+app.use("/api/comments", require("./routes/comments.js"));
+app.use("/api/likes", require("./routes/likes.js"));
+app.use("/api/auth", require("./routes/auth.js"));

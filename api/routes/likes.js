@@ -1,8 +1,10 @@
-// const express = require ("express");
-// const router = express.Router();
+  const express = require ("express");
+ const router = express.Router();
+ const {getLikes, addLike, deleteLike} = require ("../controllers/likeController")
 
-// const {getUser} =  require ("../controllers/userController");
-// router.get ("",);
+ router.get ("/", getLikes);
+ router.post ("/", addLike);
+ router.delete ("/", deleteLike);
 
 
-// module.exports = router ;
+ module.exports = router ;

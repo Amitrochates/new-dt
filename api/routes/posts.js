@@ -1,8 +1,10 @@
-// const express = require ("express");
-// const router = express.Router();
+const express = require ("express");
+const { getPosts, addPost, deletePost } = require( "../controllers/postController.js");
 
-// const {getUser} =  require ("../controllers/userController");
-// router.get ("",);
+const router = express.Router();
 
+router.get("/", getPosts);
+router.post("/", addPost);
+router.delete("/:id", deletePost);
 
-// module.exports = router ;
+module.exports = router;
